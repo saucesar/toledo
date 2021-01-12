@@ -6,6 +6,7 @@ import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import main.Main;
@@ -28,6 +29,8 @@ public class IndexController implements Initializable{
     private TextField daysOfValidity;
     @FXML
     private CheckBox withDate;
+    @FXML
+    private MenuButton ajustes;
 
     private Facade facade;
     private FileChooser fileChooser;
@@ -38,25 +41,9 @@ public class IndexController implements Initializable{
         try {
             this.fileChooser = new FileChooser();
             this.facade = Facade.getInstance();
+
         } catch (ConfigFileNotFoundException e) {
-            try {
-
-                this.fileChooser.setTitle("Selecione o arquivo de itens");
-                File file = this.fileChooser.showOpenDialog(Main.getStage());
-                if(file != null){
-                    FileWriter fileWriter = new FileWriter(".config.txt");
-                    PrintWriter writer = new PrintWriter(fileWriter);
-
-                    writer.print(file.getAbsoluteFile());
-                    fileWriter.close();
-                    this.facade = Facade.getInstance();
-                    this.facade.changeFile(file.getAbsolutePath());
-                } else {
-                    throw new ConfigFileNotFoundException();
-                }
-            } catch (Exception ex) {
-                Main.showErrorAlert(ex.getMessage());
-            }
+            this.changeProductsFile();
         } catch (Exception e){
             Main.showErrorAlert(e.getMessage());
         }
@@ -110,6 +97,26 @@ public class IndexController implements Initializable{
             this.product.setPrice(Double.parseDouble(this.price.getText()));
         } catch (NumberFormatException ne){
             this.product.setPrice(Double.parseDouble(this.price.getText().replace(',', '.')));
+        } catch (Exception e) {
+            Main.showErrorAlert(e.getMessage());
+        }
+    }
+
+    public void changeProductsFile() {
+        this.fileChooser.setTitle("Selecione o arquivo de itens");
+        File newFile = this.fileChooser.showOpenDialog(Main.getStage());
+        try {
+            if(newFile != null){
+                FileWriter fileWriter = new FileWriter(".config.txt");
+                PrintWriter writer = new PrintWriter(fileWriter);
+
+                writer.print(newFile.getAbsoluteFile());
+                fileWriter.close();
+                this.facade = Facade.getInstance();
+                this.facade.changeFile(newFile.getAbsolutePath());
+            } else {
+                throw new FileNotFoundException("itens");
+            }
         } catch (Exception e) {
             Main.showErrorAlert(e.getMessage());
         }

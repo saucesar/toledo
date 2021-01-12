@@ -5,6 +5,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -31,16 +34,12 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minWidth="80.0" mnemonicParsing="false" styleClass="btn" stylesheets="@../assets/app.css" text="Config">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Button>
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </HBox>
+            <Separator prefWidth="200.0" />
             <VBox VBox.vgrow="ALWAYS">
                <children>
                   <Label text="Descriçao">
@@ -67,6 +66,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="Preço" VBox.vgrow="ALWAYS">
@@ -84,26 +84,25 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </HBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+            <HBox alignment="TOP_CENTER" spacing="70.0" VBox.vgrow="ALWAYS">
                <children>
                   <CheckBox fx:id="withDate" mnemonicParsing="false" prefHeight="18.0" prefWidth="135.0" stylesheets="@../assets/app.css" text="Incluir data?" />
-               </children>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </VBox>
-            <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#save" prefWidth="100.0" stylesheets="@../assets/app.css" text="Salvar" VBox.vgrow="ALWAYS">
+                  <Button mnemonicParsing="false" onAction="#save" prefWidth="100.0" stylesheets="@../assets/app.css" text="Salvar" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <styleClass>
                         <String fx:value="btn-save" />
                         <String fx:value="btn" />
-                     </styleClass></Button>
+                     </styleClass>
+                  </Button>
+                  <MenuButton fx:id="ajustes" mnemonicParsing="false" prefWidth="100.0" styleClass="btn" stylesheets="@../assets/app.css" text="Ajustes" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#changeProductsFile" text="Selecionar Arq. de Produtos" />
+                    </items>
+                  </MenuButton>
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
-            </VBox>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
