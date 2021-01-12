@@ -1,0 +1,14 @@
+
+.input, .btn {
+    -fx-background-radius:20;
+    -fx-border-radius:20;
+}
+
+.btn-save {
+    -fx-background-color: yellowgreen;
+    -fx-border-color: black;
+}
+
+.container {
+    -fx-background-image: url("prix5-plus.png");
+}
