@@ -70,7 +70,8 @@ public class IndexController implements Initializable{
             this.daysOfValidity.setText(String.valueOf(this.product.getDaysOfValidity()));
             this.withDate.setSelected(this.product.isWithDate());
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             this.reset();
             Main.showErrorAlert(e.getMessage());
         }
@@ -80,26 +81,37 @@ public class IndexController implements Initializable{
         try {
             this.product.setDescription(this.description.getText());
             this.product.setCode(this.search.getText());
-            this.product.setPrice(Double.parseDouble(this.price.getText()));
             this.product.setDaysOfValidity(Integer.parseInt(this.daysOfValidity.getText()));
             this.product.setWithDate(this.withDate.isSelected());
-
+            this.getPrice();
             this.reset();
 
-            this.product = null;
             this.facade.saveAll();
 
-            Main.showSuccessAlert("Produto salvo!");
-        } catch (Exception e) {
+            Main.showSuccessAlert("As alterações foram salvas!");
+        }  catch (NullPointerException ne){
+            Main.showErrorAlert("Nenhum produto selecionado!");
+        }  catch (Exception e) {
             Main.showErrorAlert(e.getMessage());
         }
     }
 
     private void reset(){
+        this.product = null;
         this.search.setText("");
         this.description.setText("");
         this.price.setText("");
         this.daysOfValidity.setText("");
         this.withDate.setSelected(false);
+    }
+
+    private void getPrice(){
+        try{
+            this.product.setPrice(Double.parseDouble(this.price.getText()));
+        } catch (NumberFormatException ne){
+            this.product.setPrice(Double.parseDouble(this.price.getText().replace(',', '.')));
+        } catch (Exception e) {
+            Main.showErrorAlert(e.getMessage());
+        }
     }
 }
